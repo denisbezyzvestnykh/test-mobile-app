@@ -21,25 +21,29 @@
 <body>
 
     <h1>Check for context</h1>
+    <p id="contextMessage"></p>
 
     <div id="imageContainer"></div>
 
     <script>
         // Проверка наличия window.cordova_iab
         const imageContainer = document.getElementById("imageContainer");
+        const contextMessage = document.getElementById("contextMessage");
 
         if (window.cordova_iab) {
-            // Если объект есть, показываем изображение с логотипом Cordova
+            // Если объект есть, показываем изображение с логотипом Cordova и сообщение для мобильного приложения
             const cordovaLogo = document.createElement("img");
             cordovaLogo.src = "https://www.fullstacktechnology.com/wp-content/uploads/2020/05/cordova_logo_normal_dark_large.png";
             cordovaLogo.alt = "Cordova Logo";
             imageContainer.appendChild(cordovaLogo);
+            contextMessage.textContent = "I'm in mobile app mode";
         } else {
-            // Если объекта нет, показываем изображение с другим логотипом
+            // Если объекта нет, показываем изображение с другим логотипом и сообщение для обычной веб-страницы
             const fallbackLogo = document.createElement("img");
             fallbackLogo.src = "https://cdn-icons-png.flaticon.com/512/1006/1006771.png";
             fallbackLogo.alt = "Web page Logo";
             imageContainer.appendChild(fallbackLogo);
+            contextMessage.textContent = "I'm on usual web page mode";
         }
     </script>
 
