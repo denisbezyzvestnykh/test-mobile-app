@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ключи объекта window</title>
+    <style>
+        #window-keys {
+            background-color: yellow;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            border: 1px solid #ccc;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="window-keys"></div>
+
+    <script>
+        // Получаем все ключи объекта window
+        const keys = Object.keys(window).sort();
+
+        // Получаем элемент div для вывода
+        const div = document.getElementById('window-keys');
+
+        // Перебираем ключи и добавляем их в div
+        keys.forEach(key => {
+            const p = document.createElement('p');
+            p.textContent = key;
+            div.appendChild(p);
+        });
+    </script>
+
+</body>
+
+</html>
