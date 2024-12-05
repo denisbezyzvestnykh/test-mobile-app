@@ -19,13 +19,42 @@
 </head>
 
 <body>
+    <script>
+        /**
+         * Method which will take care of opening a given URL in a new tab. For Cordova based applications, the link can
+         * open in the system's default browser. While for normal browser, it will open a new tab.
+         */
+        function openInNewTab(url) {
+            // If WebKit message handler is available, send the message through it to Cordova application
+            if (window.webkit && webkit.messageHandlers && webkit.messageHandlers.cordova_iab) {
+                // This means we are in a Cordova WebView
 
+                const data = {
+                    // Custom event name
+                    eventName: 'open-external-url-in-new-tab',
+                    url: url
+                }
+
+                // Send message to InAppBrowser event listener so that Cordova app can handle it.
+                webkit.messageHandlers.cordova_iab.postMessage(JSON.stringify(data))
+            } else {
+
+                // Otherwise we are in normal browser so directly open in the new tab
+                window.open(url, '_blank');
+            }
+
+            return false;
+        }
+    </script>
     <h1>Check for context</h1>
     <p id="contextMessage"></p>
 
     <div id="imageContainer"></div>
     <a href="https://fino.lk" target="_system">Fino.lk</a>
     <a href="#" onclick="window.open(encodeURI('https://fino.lk'), '_system'); return false;">onclick fino</a>
+    <a href="#" onclick="return openInNewTab('http://google.com')">
+        Privacy Policy
+    </a>
     <script>
         // Проверка наличия window.cordova_iab
         const imageContainer = document.getElementById("imageContainer");
