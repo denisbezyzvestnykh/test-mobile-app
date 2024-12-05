@@ -46,10 +46,10 @@
             return false;
         }
 
-        function displayWindowKeys(obj, parentDiv, level = 0) {
+        function displayWindowKeys(obj, parentDiv, level = 0, all = false) {
             // Итерация по ключам объекта
             for (const key in obj) {
-                if (obj.hasOwnProperty(key) && key.includes('cordova')) {
+                if (obj.hasOwnProperty(key) && (key.includes('cordova') || all)) {
                     const value = obj[key];
                     const div = document.createElement('div');
 
@@ -60,7 +60,7 @@
                     if (typeof value === 'object' && value !== null && level < 1) {
                         div.style.fontWeight = 'bold'; // Выделим вложенные объекты
                         parentDiv.appendChild(div);
-                        displayWindowKeys(value, parentDiv, level + 1); // Рекурсивный вызов для вложенного объекта
+                        displayWindowKeys(value, parentDiv, level + 1, true); // Рекурсивный вызов для вложенного объекта
                     } else {
                         parentDiv.appendChild(div); // Просто добавляем имя ключа
                     }
