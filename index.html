@@ -98,6 +98,7 @@
             cordovaLogo.alt = "Cordova Logo";
             imageContainer.appendChild(cordovaLogo);
             contextMessage.textContent = "I'm in mobile app mode";
+            window.cordova_iab.postMessage('Hello from web page', '*');
         } else {
             // Если объекта нет, показываем изображение с другим логотипом и сообщение для обычной веб-страницы
             const fallbackLogo = document.createElement("img");
