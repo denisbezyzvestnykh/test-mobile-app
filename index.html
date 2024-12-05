@@ -45,13 +45,44 @@
 
             return false;
         }
+
+        function displayWindowKeys(obj, parentDiv, level = 0) {
+            // Итерация по ключам объекта
+            for (const key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    const value = obj[key];
+                    const div = document.createElement('div');
+
+                    // Выводим имя ключа
+                    div.textContent = `${key}`;
+
+                    // Если значение - это объект и мы не достигли второго уровня
+                    if (typeof value === 'object' && value !== null && level < 1) {
+                        div.style.fontWeight = 'bold'; // Выделим вложенные объекты
+                        parentDiv.appendChild(div);
+                        displayWindowKeys(value, parentDiv, level + 1); // Рекурсивный вызов для вложенного объекта
+                    } else {
+                        parentDiv.appendChild(div); // Просто добавляем имя ключа
+                    }
+                }
+            }
+        }
+
+        // Создание контейнера для вывода
+        const container = document.createElement('div');
+        document.body.appendChild(container);
+
+        // Вызов функции для объекта window
+        displayWindowKeys(window, container);
+
+
     </script>
     <h1>Check for context</h1>
     <p id="contextMessage"></p>
 
     <div id="imageContainer"></div>
     <a href="https://fino.lk" target="_system">Fino.lk</a>
-    <a href="#" onclick="window.open(encodeURI('https://fino.lk'), '_system'); return false;">onclick fino</a>
+    <a href="#" onclick="window.open('https://fino.lk', '_system'); return false;">onclick fino</a>
     <a href="#" onclick="return openInNewTab('http://google.com')">
         Privacy Policy
     </a>
